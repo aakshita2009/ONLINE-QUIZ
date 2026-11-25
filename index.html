@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuizVerse — Online Quiz Website</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="#home" class="brand">
+        <span class="brand-badge">Q</span>
+        <span>QuizVerse</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="#home">Home</a>
+        <a href="#categories">Categories</a>
+        <a href="#quiz-portal">Take Quiz</a>
+        <a href="#leaderboard">Leaderboard</a>
+      </nav>
+      <a href="#quiz-portal" class="btn btn-sm btn-primary">Start Now</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <span class="eyebrow">Interactive Knowledge Portal</span>
+        <h1>Challenge Your Mind with Timed Online Quizzes</h1>
+        <p>
+          Explore curated quizzes across Web Development, Biotechnology &amp; Science, and General Knowledge.
+          Track your accuracy, review detailed explanations, and climb the local leaderboard.
+        </p>
+        <div class="hero-actions">
+          <a href="#quiz-portal" class="btn btn-primary">Launch Quiz Portal</a>
+          <a href="#categories" class="btn btn-outline">Browse Topics</a>
+        </div>
+        <div class="hero-metrics">
+          <div>
+            <strong>3</strong>
+            <span>Core Subjects</span>
+          </div>
+          <div>
+            <strong>15</strong>
+            <span>Curated Questions</span>
+          </div>
+          <div>
+            <strong>Instant</strong>
+            <span>Score &amp; Review</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-preview-card">
+        <div class="preview-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="preview-title">Live Sample Question</span>
+        </div>
+        <div class="preview-body">
+          <span class="topic-pill">Science &amp; Biotech</span>
+          <h3>Which enzyme is used to amplify DNA segments in PCR?</h3>
+          <ul class="preview-options">
+            <li>DNA Ligase</li>
+            <li class="selected-sample">✓ Taq Polymerase</li>
+            <li>RNA Primase</li>
+            <li>Helicase</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section id="categories" class="section section-alt">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Explore Quiz Categories</h2>
+        <p>Select any topic card below to load that subject directly into the quiz portal.</p>
+      </div>
+
+      <div class="category-grid">
+        <article class="category-card">
+          <div class="cat-icon">💻</div>
+          <h3>Web Development</h3>
+          <p>HTML5 semantics, modern CSS layouts, JavaScript ES6+, and browser APIs.</p>
+          <button class="btn btn-secondary select-topic-btn" data-topic="web">Select Web Dev Quiz</button>
+        </article>
+
+        <article class="category-card">
+          <div class="cat-icon">🧬</div>
+          <h3>Science &amp; Biotech</h3>
+          <p>Molecular biology, genetics, chemistry fundamentals, and astrophysics.</p>
+          <button class="btn btn-secondary select-topic-btn" data-topic="science">Select Science Quiz</button>
+        </article>
+
+        <article class="category-card">
+          <div class="cat-icon">🌍</div>
+          <h3>General Knowledge</h3>
+          <p>World geography, history, landmarks, and global culture trivia.</p>
+          <button class="btn btn-secondary select-topic-btn" data-topic="general">Select GK Quiz</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Interactive Quiz Portal -->
+  <main id="quiz-portal" class="section">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Online Quiz Portal</h2>
+        <p>Enter your name, pick a subject and timer pace, and test your knowledge.</p>
+      </div>
+
+      <!-- Setup View -->
+      <div id="setup-panel" class="portal-card">
+        <form id="quiz-setup-form" class="setup-grid">
+          <div class="form-field">
+            <label for="player-name">Participant Name</label>
+            <input type="text" id="player-name" placeholder="e.g., Alex Morgan" required maxlength="30" />
+          </div>
+
+          <div class="form-field">
+            <label for="topic-select">Quiz Subject</label>
+            <select id="topic-select">
+              <option value="all">All Subjects (Mixed 10 Questions)</option>
+              <option value="web">Web Development (5 Questions)</option>
+              <option value="science">Science &amp; Biotech (5 Questions)</option>
+              <option value="general">General Knowledge (5 Questions)</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="time-select">Timer Per Question</label>
+            <select id="time-select">
+              <option value="15">15 Seconds (Rapid)</option>
+              <option value="25" selected>25 Seconds (Standard)</option>
+              <option value="40">40 Seconds (Relaxed)</option>
+            </select>
+          </div>
+
+          <div class="form-field form-submit">
+            <button type="submit" class="btn btn-primary btn-full">Begin Quiz</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Active Quiz View -->
+      <div id="active-quiz-panel" class="portal-card hidden">
+        <div class="quiz-status-bar">
+          <div>
+            <span id="q-progress-text" class="status-label">Question 1 of 5</span>
+            <span id="q-topic-tag" class="topic-pill">Web Development</span>
+          </div>
+          <div id="timer-display" class="timer-pill">⏱ 25s</div>
+        </div>
+
+        <div class="progress-track">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+
+        <h3 id="question-title" class="question-heading">Question text loads here</h3>
+        <div id="choices-list" class="choices-stack"></div>
+
+        <div id="answer-explanation" class="explanation-box hidden"></div>
+
+        <div class="quiz-controls">
+          <span class="current-points">Current Score: <strong id="score-counter">0</strong></span>
+          <button id="next-question-btn" class="btn btn-primary" disabled>Next Question →</button>
+        </div>
+      </div>
+
+      <!-- Results View -->
+      <div id="results-panel" class="portal-card hidden">
+        <div class="results-banner">
+          <div id="medal-icon" class="medal-icon">🏆</div>
+          <h3 id="congrats-heading">Quiz Complete!</h3>
+          <p id="summary-subtitle">Here is your performance breakdown.</p>
+        </div>
+
+        <div class="kpi-row">
+          <div class="kpi-box">
+            <span id="res-score" class="kpi-number">0 / 5</span>
+            <span class="kpi-caption">Score</span>
+          </div>
+          <div class="kpi-box">
+            <span id="res-accuracy" class="kpi-number">0%</span>
+            <span class="kpi-caption">Accuracy</span>
+          </div>
+          <div class="kpi-box">
+            <span id="res-duration" class="kpi-number">0s</span>
+            <span class="kpi-caption">Time Elapsed</span>
+          </div>
+        </div>
+
+        <h4 class="review-heading">Detailed Question Review</h4>
+        <div id="review-container" class="review-stack"></div>
+
+        <div class="results-footer">
+          <button id="retake-btn" class="btn btn-primary">Retake Same Quiz</button>
+          <button id="new-setup-btn" class="btn btn-secondary">Choose Another Topic</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Leaderboard Section -->
+  <section id="leaderboard" class="section section-alt">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Recent High Scores</h2>
+        <p>Top quiz attempts saved locally in your browser.</p>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="scores-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Participant</th>
+              <th>Subject</th>
+              <th>Score</th>
+              <th>Accuracy</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-body">
+            <tr>
+              <td colspan="5" class="empty-row">No quiz attempts recorded yet. Complete a quiz to appear here!</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p><strong>QuizVerse</strong> — Online Quiz Website</p>
+      <p>Built with semantic HTML5, responsive CSS3, and vanilla JavaScript.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
